@@ -45,8 +45,16 @@ public class BookDAOImpl implements BookDAO {
 		if (list == null) {
 			list = new ArrayList<Book>();
 		}
-		list.add(book);
-		DataAccess.save(list, bookJson);
+		boolean exist = false;
+		for (Book b : list) {
+			if (b.getIsbn().equals(book.getIsbn())) {
+				exist = true;
+			}
+		}
+		if (!exist) {
+			list.add(book);
+			DataAccess.save(list, bookJson);
+		}
 	}
 
 

@@ -14,7 +14,7 @@ public abstract class Controller {
 	
 	public void prepareUI() {
 		String username = Context.getInstance().getUser().getFirstName();
-		userWelcomeLabel.setText("Welcome back, " + username);
+		userWelcomeLabel.setText("Login as " + username);
 	}
 	
 	public void logout(ActionEvent actionEvent) {

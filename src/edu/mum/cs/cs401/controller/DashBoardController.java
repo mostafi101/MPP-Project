@@ -44,6 +44,9 @@ public class DashBoardController extends Controller {
 	private TextField searchMemberIdText;
 	
 	@FXML
+	private TextField isbnSearchTextField;
+	
+	@FXML
 	private TableView<Person> memberTableView;
 	
 	@FXML
@@ -191,6 +194,22 @@ public class DashBoardController extends Controller {
 	
 	public void addBookButton(ActionEvent actionEvent) {
 		Context.getInstance().changeScreen(actionEvent, AddBookView.getInstance());
+	}
+	
+	public void bookSearchButton(ActionEvent actionEvent) {
+		String isbn = isbnSearchTextField.getText();
+		if (isbn.isEmpty()) {
+			setAllBookToTable();
+		} else {
+			Book search = BookDAOImpl.getInstance().searchBook(isbn);
+			ObservableList<Book> data = null;
+			if (search != null) {
+				List<Book> list = new ArrayList<Book>();
+				list.add(search);
+				data = FXCollections.observableArrayList(list );
+			}
+			tableViewBook.setItems(data);
+		}
 	}
 	
 	public void addBookCopyButton(ActionEvent actionEvent) {
