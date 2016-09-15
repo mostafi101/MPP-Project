@@ -7,7 +7,6 @@ import edu.mum.cs.cs401.dao.BookCopyDAO;
 import edu.mum.cs.cs401.dao.DataAccess;
 import edu.mum.cs.cs401.entity.AvailableStatus;
 import edu.mum.cs.cs401.entity.BookCopy;
-import edu.mum.cs.cs401.entity.Record;
 
 public class BookCopyDAOImpl implements BookCopyDAO{
 	

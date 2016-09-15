@@ -6,39 +6,49 @@ import java.util.List;
 import edu.mum.cs.cs401.dao.BookDAO;
 import edu.mum.cs.cs401.dao.DataAccess;
 import edu.mum.cs.cs401.entity.Book;
-import edu.mum.cs.cs401.entity.BookCopy;
 
-public class BookDAOImpl implements BookDAO{
+public class BookDAOImpl implements BookDAO {
 	private String cdr = System.getProperty("user.dir");
-	private String bookJson =cdr + "/src/edu/mum/cs/cs401/dao/book.json";
+	private String bookJson = cdr + "/src/edu/mum/cs/cs401/dao/book.json";
 	private static List<Book> list;
-	
-	private BookDAOImpl(){
+
+	private BookDAOImpl() {
 		loadList();
 	}
-	
+
 	private static BookDAOImpl bookDAO = new BookDAOImpl();
-	
+
 	public static BookDAOImpl getInstance() {
 		return bookDAO;
 	}
-	
+
 	@Override
 	public List<Book> getAll() {
 		return list;
 	}
-	
-	public void loadList(){
+
+	public void loadList() {
 		list = DataAccess.getBookList(bookJson);
 	}
+
 	@Override
 	public void addBooks(List<Book> books) {
 		if (list == null) {
 			list = new ArrayList<Book>();
-		} 
+		}
 		list.addAll(books);
 		DataAccess.save(list, bookJson);
 	}
+	
+	@Override
+	public void addBook(Book book) {
+		if (list == null) {
+			list = new ArrayList<Book>();
+		}
+		list.add(book);
+		DataAccess.save(list, bookJson);
+	}
+
 
 	@Override
 	public Book searchBook(String isbn) {

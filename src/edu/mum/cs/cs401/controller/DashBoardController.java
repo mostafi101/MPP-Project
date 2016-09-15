@@ -9,6 +9,7 @@ import edu.mum.cs.cs401.context.Context;
 import edu.mum.cs.cs401.dao.impl.PersonDAOImpl;
 import edu.mum.cs.cs401.entity.Person;
 import edu.mum.cs.cs401.entity.Role;
+import edu.mum.cs.cs401.view.AddBookView;
 import edu.mum.cs.cs401.view.AddMemberView;
 import edu.mum.cs.cs401.view.CheckoutView;
 import javafx.collections.FXCollections;
@@ -79,6 +80,11 @@ public class DashBoardController extends Controller {
 	
 	public void addMember(ActionEvent actionEvent) {
 		Context.getInstance().changeScreen(actionEvent, AddMemberView.getInstance());
+	}
+	
+	public void addBook(ActionEvent actionEvent) {
+		System.out.println("it is working!");
+		Context.getInstance().changeScreen(actionEvent, AddBookView.getInstance());
 	}
 	
 	public void searchMember(ActionEvent actionEvent) {

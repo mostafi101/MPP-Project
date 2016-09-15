@@ -10,6 +10,8 @@ public interface BookDAO {
 	
 	public void addBooks(List<Book> books);
 	
+	public void addBook(Book book);
+	
 	public Book searchBook(String isbn);
 	
 }

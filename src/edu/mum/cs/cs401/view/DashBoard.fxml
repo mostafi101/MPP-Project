@@ -25,7 +25,7 @@
                            <children>
                               <Button layoutX="63.0" layoutY="67.0" mnemonicParsing="false" onAction="#addMember" prefHeight="75.0" prefWidth="155.0" text="Add Member" />
                               <Button layoutX="63.0" layoutY="233.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="155.0" text="Add Book Copy" />
-                              <Button layoutX="301.0" layoutY="233.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="155.0" text="Add Book" />
+                              <Button layoutX="301.0" layoutY="233.0" mnemonicParsing="false" onAction="#addBook" prefHeight="75.0" prefWidth="155.0" text="Add Book" />
                               <Button layoutX="301.0" layoutY="67.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="155.0" text="Edit Member" />
                            </children>
                         </AnchorPane>
