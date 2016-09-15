@@ -20,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -117,6 +119,13 @@ public class CheckoutController extends Controller {
 			RecordDAOImpl.getInstance().addRecords(records);
 			BookCopyDAOImpl.getInstance().updateBookCopyStatus(selectedItem.getCopyNumber(), AvailableStatus.Unavailable);
 			Context.getInstance().changeScreen(actionEvent, DashBoardView.getInstance());
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Invalid input");
+			alert.setHeaderText("Request invalid");
+			alert.setContentText("Please check again your input");
+			alert.showAndWait().ifPresent(rs -> {
+			});
 		}
 	}
 
