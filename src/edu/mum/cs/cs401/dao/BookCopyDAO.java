@@ -14,4 +14,6 @@ public interface BookCopyDAO {
 	public List<BookCopy> searchBookCopies(String isbn);
 	
 	public void updateBookCopyStatus(String copyNumber, AvailableStatus status);
+	
+	public BookCopy searchBookCopy(String bookCopy);
 }

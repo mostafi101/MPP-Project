@@ -11,10 +11,12 @@ import edu.mum.cs.cs401.entity.Person;
 import edu.mum.cs.cs401.entity.Role;
 import edu.mum.cs.cs401.view.AddMemberView;
 import edu.mum.cs.cs401.view.CheckoutView;
+import edu.mum.cs.cs401.view.RecordView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -48,6 +50,11 @@ public class DashBoardController extends Controller {
 	@FXML
 	private TableColumn<Person, String> tableColumnLastName;
 	
+	@FXML
+	private Button addBookCopyButton;
+	
+	@FXML
+	private Button addBookButton;
 	
 	@Override
 	public void prepareUI() {
@@ -56,6 +63,11 @@ public class DashBoardController extends Controller {
 		tabPane.getTabs().clear();
 		if (roles.contains(Role.ADMIN)) {
 			tabPane.getTabs().add(adminTab);
+			addBookCopyButton.setDisable(false);
+			addBookButton.setDisable(false);
+		} else {
+			addBookCopyButton.setDisable(true);
+			addBookButton.setDisable(true);
 		}
 		if (roles.contains(Role.LIBRARIAN)) {
 			tabPane.getTabs().add(libTab);
@@ -109,5 +121,17 @@ public class DashBoardController extends Controller {
 		List<Person> list = PersonDAOImpl.getInstance().getAll(Role.MEMBER);
 		ObservableList<Person> data = FXCollections.observableArrayList(list);
 		memberTableView.setItems(data);
+	}
+	
+	public void getRecords(ActionEvent actionEvent) {
+		Person selectedItem = memberTableView.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			ApplicationDataContext.getInstance().put(ContextDataKey.RECORD_MEMBER, selectedItem);
+			Context.getInstance().changeScreen(actionEvent, RecordView.getInstance());
+		}
+	}
+	
+	public void addBookCopyButton(ActionEvent actionEvent) {
+		
 	}
 }

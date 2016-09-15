@@ -5,4 +5,6 @@ public class ContextDataKey {
 	}
 	
 	public final static String CHECKOUT_MEMBER = "checkoutMember";
+	
+	public final static String RECORD_MEMBER = "recordMember";
 }

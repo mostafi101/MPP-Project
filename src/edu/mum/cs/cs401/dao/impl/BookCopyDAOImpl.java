@@ -63,4 +63,14 @@ public class BookCopyDAOImpl implements BookCopyDAO{
 		}
 		DataAccess.save(list, bookJson);
 	}
+
+	@Override
+	public BookCopy searchBookCopy(String bookCopy) {
+		for (BookCopy bc : list) {
+			if (bc.getCopyNumber().equals(bookCopy)) {
+				return bc;
+			}
+		}
+		return null;
+	}
 }

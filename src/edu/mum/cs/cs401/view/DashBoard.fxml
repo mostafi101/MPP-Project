@@ -24,9 +24,6 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Button layoutX="63.0" layoutY="67.0" mnemonicParsing="false" onAction="#addMember" prefHeight="75.0" prefWidth="155.0" text="Add Member" />
-                              <Button layoutX="63.0" layoutY="233.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="155.0" text="Add Book Copy" />
-                              <Button layoutX="301.0" layoutY="233.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="155.0" text="Add Book" />
-                              <Button layoutX="301.0" layoutY="67.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="155.0" text="Edit Member" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -42,10 +39,12 @@
                                     <TableColumn fx:id="tableColumnLastName" prefWidth="85.0" text="Last Name" />
                                 </columns>
                               </TableView>
-                              <TextField fx:id="searchMemberIdText" layoutX="46.0" layoutY="36.0" prefHeight="25.0" prefWidth="157.0" promptText="Member ID" />
-                              <Button layoutX="296.0" layoutY="198.0" mnemonicParsing="false" onAction="#checkoutSceneButton" prefHeight="35.0" prefWidth="90.0" text="Checkout" />
-                              <Button layoutX="296.0" layoutY="244.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="90.0" text="Records" />
-                              <Button layoutX="212.0" layoutY="36.0" mnemonicParsing="false" onAction="#searchMember" text="Search" />
+                              <TextField fx:id="searchMemberIdText" layoutX="46.0" layoutY="36.0" prefHeight="31.0" prefWidth="145.0" promptText="Member ID" />
+                              <Button layoutX="287.0" layoutY="287.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="134.0" text="Add Book Copy" onAction="#addBookCopyButton" fx:id="addBookCopyButton"/>
+                              <Button layoutX="427.0" layoutY="287.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="97.0" text="Add Book" fx:id="addBookButton" onAction="#addBookButton" />
+                              <Button layoutX="46.0" layoutY="285.0" mnemonicParsing="false" onAction="#checkoutSceneButton" prefHeight="35.0" prefWidth="104.0" text="Checkout" />
+                              <Button layoutX="155.0" layoutY="285.0" mnemonicParsing="false" onAction="#getRecords" prefHeight="35.0" prefWidth="106.0" text="Records" />
+                              <Button layoutX="195.0" layoutY="36.0" mnemonicParsing="false" onAction="#searchMember" text="Search" />
                            </children>
                         </AnchorPane>
                   </content>
