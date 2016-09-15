@@ -4,7 +4,7 @@ public class BookCopy {
 
 	private String copyNumber;
 	
-	private Boolean isAvailable;
+	private AvailableStatus isAvailable;
 	
 	private String isbn;
 	
@@ -16,22 +16,14 @@ public class BookCopy {
 		this.copyNumber = copyNumber;
 	}
 	
-	public BookCopy(String copyNumber, boolean isAvailable, String isbn) {
+	public BookCopy(String copyNumber, AvailableStatus isAvailable, String isbn) {
 		super();
-		this.isAvailable = isAvailable;
+		this.setIsAvailable(isAvailable);
 		this.copyNumber = copyNumber;
 		this.isbn = isbn;
 	}
 
 	public BookCopy() {
-	}
-
-	public boolean isAvailable() {
-		return isAvailable;
-	}
-
-	public void setAvailable(boolean isAvailable) {
-		this.isAvailable = isAvailable;
 	}
 
 	public String getIsbn() {
@@ -40,5 +32,13 @@ public class BookCopy {
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
+	}
+
+	public AvailableStatus getIsAvailable() {
+		return isAvailable;
+	}
+
+	public void setIsAvailable(AvailableStatus isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 }

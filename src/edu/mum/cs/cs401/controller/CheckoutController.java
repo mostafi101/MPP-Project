@@ -1,15 +1,21 @@
 package edu.mum.cs.cs401.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.mum.cs.cs401.constant.ContextDataKey;
 import edu.mum.cs.cs401.context.ApplicationDataContext;
+import edu.mum.cs.cs401.context.Context;
 import edu.mum.cs.cs401.dao.impl.BookCopyDAOImpl;
 import edu.mum.cs.cs401.dao.impl.BookDAOImpl;
+import edu.mum.cs.cs401.dao.impl.RecordDAOImpl;
+import edu.mum.cs.cs401.entity.AvailableStatus;
 import edu.mum.cs.cs401.entity.Book;
 import edu.mum.cs.cs401.entity.BookCopy;
 import edu.mum.cs.cs401.entity.Person;
+import edu.mum.cs.cs401.entity.Record;
+import edu.mum.cs.cs401.view.DashBoardView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,6 +54,9 @@ public class CheckoutController extends Controller {
 	
 	@FXML
 	private TableColumn<BookCopy, Boolean> tableColumnAvailability;
+	
+	@FXML
+	private TextField borrowDaysTextField;
 
 	@Override
 	public void prepareUI() {
@@ -93,7 +102,22 @@ public class CheckoutController extends Controller {
 	}
 
 	public void checkoutButton(ActionEvent actionEvent) {
-		
+		BookCopy selectedItem = bookCopyTableView.getSelectionModel().getSelectedItem();
+		String days = borrowDaysTextField.getText();
+		int dayInt = 0;
+		try {
+			dayInt = Integer.parseInt(days);
+		} catch (Exception e) {
+		}
+		if (selectedItem != null && dayInt > 0 && selectedItem.getIsAvailable().equals(AvailableStatus.Available)) {
+			Person person = (Person) ApplicationDataContext.getInstance().get(ContextDataKey.CHECKOUT_MEMBER);
+			Record record = new Record(LocalDate.now(), dayInt, person.getId(), selectedItem.getCopyNumber());
+			List<Record> records = new ArrayList<Record>();
+			records.add(record);
+			RecordDAOImpl.getInstance().addRecords(records);
+			BookCopyDAOImpl.getInstance().updateBookCopyStatus(selectedItem.getCopyNumber(), AvailableStatus.Unavailable);
+			Context.getInstance().changeScreen(actionEvent, DashBoardView.getInstance());
+		}
 	}
 
 	private void setAllMemberToTable() {

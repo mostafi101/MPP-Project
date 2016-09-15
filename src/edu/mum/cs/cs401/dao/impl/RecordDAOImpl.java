@@ -31,6 +31,9 @@ public class RecordDAOImpl implements RecordDAO {
 
 	@Override
 	public void addRecords(List<Record> bookcopy) {
+		if (list == null) {
+			list = new ArrayList<Record>();
+		} 
 		list.addAll(bookcopy);
 		DataAccess.save(list, recordJson);
 		

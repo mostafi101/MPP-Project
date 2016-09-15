@@ -2,6 +2,7 @@ package edu.mum.cs.cs401.dao;
 
 import java.util.List;
 
+import edu.mum.cs.cs401.entity.AvailableStatus;
 import edu.mum.cs.cs401.entity.BookCopy;
 
 public interface BookCopyDAO {
@@ -12,4 +13,5 @@ public interface BookCopyDAO {
 	
 	public List<BookCopy> searchBookCopies(String isbn);
 	
+	public void updateBookCopyStatus(String copyNumber, AvailableStatus status);
 }

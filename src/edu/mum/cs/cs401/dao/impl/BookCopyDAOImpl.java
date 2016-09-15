@@ -5,7 +5,9 @@ import java.util.List;
 
 import edu.mum.cs.cs401.dao.BookCopyDAO;
 import edu.mum.cs.cs401.dao.DataAccess;
+import edu.mum.cs.cs401.entity.AvailableStatus;
 import edu.mum.cs.cs401.entity.BookCopy;
+import edu.mum.cs.cs401.entity.Record;
 
 public class BookCopyDAOImpl implements BookCopyDAO{
 	
@@ -30,6 +32,9 @@ public class BookCopyDAOImpl implements BookCopyDAO{
 
 	@Override
 	public void addBookCopies(List<BookCopy> bookcopy) {
+		if (list == null) {
+			list = new ArrayList<BookCopy>();
+		} 
 		list.addAll(bookcopy);
 		DataAccess.save(list, bookJson);
 	}
@@ -47,5 +52,15 @@ public class BookCopyDAOImpl implements BookCopyDAO{
 
 	public void loadList(){
 		list = DataAccess.getBookCopyList(bookJson);
+	}
+
+	@Override
+	public void updateBookCopyStatus(String copyNumber, AvailableStatus status) {
+		for (BookCopy bc : list) {
+			if (bc.getCopyNumber().equals(copyNumber)) {
+				bc.setIsAvailable(status);
+			}
+		}
+		DataAccess.save(list, bookJson);
 	}
 }
