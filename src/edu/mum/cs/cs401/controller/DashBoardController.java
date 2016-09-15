@@ -6,9 +6,11 @@ import java.util.List;
 import edu.mum.cs.cs401.constant.ContextDataKey;
 import edu.mum.cs.cs401.context.ApplicationDataContext;
 import edu.mum.cs.cs401.context.Context;
+import edu.mum.cs.cs401.dao.impl.BookCopyDAOImpl;
 import edu.mum.cs.cs401.dao.impl.BookDAOImpl;
 import edu.mum.cs.cs401.dao.impl.PersonDAOImpl;
 import edu.mum.cs.cs401.entity.Book;
+import edu.mum.cs.cs401.entity.BookCopy;
 import edu.mum.cs.cs401.entity.Person;
 import edu.mum.cs.cs401.entity.Role;
 import edu.mum.cs.cs401.view.AddBookView;
@@ -60,7 +62,19 @@ public class DashBoardController extends Controller {
 	private Button addBookButton;
 	
 	@FXML
+	private Button addMemberButton;
+	
+	@FXML
+	private Button checkoutButton;
+	
+	@FXML
+	private Button recordButton;
+	
+	@FXML
 	private TableView<Book> tableViewBook;
+	
+	@FXML
+	private TableView<BookCopy> tableViewBookCopy;
 	
 	@FXML
 	private TableColumn<Book, String> tableColumnISBN;
@@ -68,26 +82,49 @@ public class DashBoardController extends Controller {
 	@FXML
 	private TableColumn<Book, String> tableColumnTitle;
 	
+	@FXML
+	private TableColumn<Book, String> tableColumnDescription;
+	
+	@FXML
+	private TableColumn<BookCopy, String> tableColumnBookCopy;
+	
+	@FXML
+	private TableColumn<BookCopy, String> tableColumnAvailability;
+	
 	@Override
 	public void prepareUI() {
 		super.prepareUI();
 		List<Role> roles = Context.getInstance().getUser().getRoles();
-		if (roles.contains(Role.ADMIN)) {
-			addBookCopyButton.setDisable(false);
-			addBookButton.setDisable(false);
-		} else {
+		// init table
+		tableColumnId.setCellValueFactory(new PropertyValueFactory<Person, Integer>("id"));
+		tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
+		tableColumnLastName.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
+		tableColumnISBN.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
+		tableColumnTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
+		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<Book, String>("description"));
+		tableColumnBookCopy.setCellValueFactory(new PropertyValueFactory<BookCopy, String>("copyNumber"));
+		tableColumnAvailability.setCellValueFactory(new PropertyValueFactory<BookCopy, String>("isAvailable"));
+		//bind table
+		tableViewBook.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		    	List<BookCopy> bookCopies = BookCopyDAOImpl.getInstance().searchBookCopies(newSelection.getIsbn());
+		    	ObservableList<BookCopy> data = FXCollections.observableArrayList(bookCopies);
+		    	tableViewBookCopy.setItems(data);
+		    } else {
+		    	tableViewBookCopy.getItems().clear();
+		    }
+		});
+		
+		setAllBookToTable();
+		setAllMemberToTable();
+		if (!roles.contains(Role.ADMIN)) {
 			addBookCopyButton.setDisable(true);
 			addBookButton.setDisable(true);
+			addMemberButton.setDisable(true);
 		}
-		if (roles.contains(Role.LIBRARIAN)) {
-			// init table
-			tableColumnId.setCellValueFactory(new PropertyValueFactory<Person, Integer>("id"));
-			tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
-			tableColumnLastName.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
-			tableColumnISBN.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
-			tableColumnTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
-			setAllBookToTable();
-			setAllMemberToTable();
+		if (!roles.contains(Role.LIBRARIAN)) {
+			checkoutButton.setDisable(true);
+			recordButton.setDisable(true);
 		}
 	}
 	

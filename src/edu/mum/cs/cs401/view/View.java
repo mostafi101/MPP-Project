@@ -9,9 +9,9 @@ import javafx.scene.Scene;
 
 public abstract class View {
 	
-	public final static double WIDTH = 900.0;
+	public final static double WIDTH = 535.0;
 	
-	public final static double HIEGHT = 700;
+	public final static double HIEGHT = 500;
 	
 	public abstract Scene getScene();
 	

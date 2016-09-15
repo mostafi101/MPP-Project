@@ -16,7 +16,7 @@ public class DashBoardView extends View{
 	
 	@Override
 	public Scene getScene() {
-		return super.getScene("DashBoard.fxml");
+		return super.getScene("DashBoard.fxml", 900, 500);
 	}
 
 }
