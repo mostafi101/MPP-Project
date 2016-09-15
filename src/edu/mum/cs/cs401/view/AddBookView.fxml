@@ -23,9 +23,9 @@
    <children>
       <GridPane layoutX="7.0" layoutY="-10.0" prefHeight="500.0" prefWidth="535.0">
          <children>
-            <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1">
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1">
                <tabs>
-                  <Tab fx:id="adminTab" text="Add Library Member">
+                  <Tab text="Add Book">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -56,7 +56,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="CENTER" prefHeight="58.0" prefWidth="166.0" text="Library Member">
+                  <Label alignment="CENTER" prefHeight="58.0" prefWidth="166.0" text="Library Book">
                      <font>
                         <Font size="19.0" />
                      </font>

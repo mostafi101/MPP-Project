@@ -110,8 +110,7 @@ public class DashBoardController extends Controller {
 	public void addBookCopy(ActionEvent actionEvent) throws IOException {
 
 		BookCopy bookCopy = new BookCopy();
-
-		Book activeBook = tableViewBook.getSelectionModel().getSelectedItem();
+		Book activeBook = (Book) ApplicationDataContext.getInstance().get(ContextDataKey.ADD_BOOK_COPY_BOOK);
 		
 		bookCopy.setCopyNumber(copyNumber.getText());
 		bookCopy.setIsbn(activeBook.getIsbn());
@@ -241,6 +240,8 @@ public class DashBoardController extends Controller {
 	
 	public void addBookCopyButton(ActionEvent actionEvent) {
 		final Stage dialog = new Stage();
+		Book selectedItem = tableViewBook.getSelectionModel().getSelectedItem();
+		ApplicationDataContext.getInstance().put(ContextDataKey.ADD_BOOK_COPY_BOOK, selectedItem);
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setScene(AddBookCopyView.getInstance().getScene());
         dialog.show();
