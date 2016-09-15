@@ -1,18 +1,22 @@
 package edu.mum.cs.cs401.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.mum.cs.cs401.constant.ContextDataKey;
 import edu.mum.cs.cs401.context.ApplicationDataContext;
 import edu.mum.cs.cs401.context.Context;
+import edu.mum.cs.cs401.dao.BookCopyDAO;
 import edu.mum.cs.cs401.dao.impl.BookCopyDAOImpl;
 import edu.mum.cs.cs401.dao.impl.BookDAOImpl;
 import edu.mum.cs.cs401.dao.impl.PersonDAOImpl;
+import edu.mum.cs.cs401.entity.AvailableStatus;
 import edu.mum.cs.cs401.entity.Book;
 import edu.mum.cs.cs401.entity.BookCopy;
 import edu.mum.cs.cs401.entity.Person;
 import edu.mum.cs.cs401.entity.Role;
+import edu.mum.cs.cs401.view.AddBookCopyView;
 import edu.mum.cs.cs401.view.AddBookView;
 import edu.mum.cs.cs401.view.AddMemberView;
 import edu.mum.cs.cs401.view.CheckoutView;
@@ -21,6 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -28,6 +33,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class DashBoardController extends Controller {
 	
@@ -94,6 +101,27 @@ public class DashBoardController extends Controller {
 	@FXML
 	private TableColumn<BookCopy, String> tableColumnAvailability;
 	
+	private BookCopyDAO bookCopyDAO = BookCopyDAOImpl.getInstance();
+	
+	@FXML
+	TextField copyNumber;
+
+
+	public void addBookCopy(ActionEvent actionEvent) throws IOException {
+
+		BookCopy bookCopy = new BookCopy();
+
+		Book activeBook = tableViewBook.getSelectionModel().getSelectedItem();
+		
+		bookCopy.setCopyNumber(copyNumber.getText());
+		bookCopy.setIsbn(activeBook.getIsbn());
+		bookCopy.setIsAvailable(AvailableStatus.Available);
+		
+		bookCopyDAO.addBookCopy(bookCopy);
+		Stage popupStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+		popupStage.close();
+	}
+	
 	@Override
 	public void prepareUI() {
 		super.prepareUI();
@@ -144,7 +172,6 @@ public class DashBoardController extends Controller {
 	}
 	
 	public void addBook(ActionEvent actionEvent) {
-		System.out.println("it is working!");
 		Context.getInstance().changeScreen(actionEvent, AddBookView.getInstance());
 	}
 	
@@ -213,6 +240,10 @@ public class DashBoardController extends Controller {
 	}
 	
 	public void addBookCopyButton(ActionEvent actionEvent) {
-		
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setScene(AddBookCopyView.getInstance().getScene());
+        dialog.show();
 	}
+	
 }

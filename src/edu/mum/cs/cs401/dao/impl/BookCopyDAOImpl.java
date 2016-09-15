@@ -37,6 +37,15 @@ public class BookCopyDAOImpl implements BookCopyDAO{
 		list.addAll(bookcopy);
 		DataAccess.save(list, bookJson);
 	}
+	
+	@Override
+	public void addBookCopy(BookCopy bookcopy) {
+		if (list == null) {
+			list = new ArrayList<BookCopy>();
+		} 
+		list.add(bookcopy);
+		DataAccess.save(list, bookJson);
+	}
 
 	@Override
 	public List<BookCopy> searchBookCopies(String isbn) {

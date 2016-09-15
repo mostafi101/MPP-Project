@@ -11,6 +11,8 @@ public interface BookCopyDAO {
 	
 	public void addBookCopies(List<BookCopy> bookcopy);
 	
+	public void addBookCopy(BookCopy bookcopy);
+	
 	public List<BookCopy> searchBookCopies(String isbn);
 	
 	public void updateBookCopyStatus(String copyNumber, AvailableStatus status);
