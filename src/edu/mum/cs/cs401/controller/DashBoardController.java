@@ -6,7 +6,9 @@ import java.util.List;
 import edu.mum.cs.cs401.constant.ContextDataKey;
 import edu.mum.cs.cs401.context.ApplicationDataContext;
 import edu.mum.cs.cs401.context.Context;
+import edu.mum.cs.cs401.dao.impl.BookDAOImpl;
 import edu.mum.cs.cs401.dao.impl.PersonDAOImpl;
+import edu.mum.cs.cs401.entity.Book;
 import edu.mum.cs.cs401.entity.Person;
 import edu.mum.cs.cs401.entity.Role;
 import edu.mum.cs.cs401.view.AddBookView;
@@ -57,13 +59,20 @@ public class DashBoardController extends Controller {
 	@FXML
 	private Button addBookButton;
 	
+	@FXML
+	private TableView<Book> tableViewBook;
+	
+	@FXML
+	private TableColumn<Book, String> tableColumnISBN;
+	
+	@FXML
+	private TableColumn<Book, String> tableColumnTitle;
+	
 	@Override
 	public void prepareUI() {
 		super.prepareUI();
 		List<Role> roles = Context.getInstance().getUser().getRoles();
-		tabPane.getTabs().clear();
 		if (roles.contains(Role.ADMIN)) {
-			tabPane.getTabs().add(adminTab);
 			addBookCopyButton.setDisable(false);
 			addBookButton.setDisable(false);
 		} else {
@@ -71,13 +80,13 @@ public class DashBoardController extends Controller {
 			addBookButton.setDisable(true);
 		}
 		if (roles.contains(Role.LIBRARIAN)) {
-			tabPane.getTabs().add(libTab);
-			
 			// init table
 			tableColumnId.setCellValueFactory(new PropertyValueFactory<Person, Integer>("id"));
 			tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
 			tableColumnLastName.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
-			
+			tableColumnISBN.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
+			tableColumnTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
+			setAllBookToTable();
 			setAllMemberToTable();
 		}
 	}
@@ -129,12 +138,22 @@ public class DashBoardController extends Controller {
 		memberTableView.setItems(data);
 	}
 	
+	private void setAllBookToTable() {
+		List<Book> list = BookDAOImpl.getInstance().getAll();
+		ObservableList<Book> data = FXCollections.observableArrayList(list);
+		tableViewBook.setItems(data);
+	}
+	
 	public void getRecords(ActionEvent actionEvent) {
 		Person selectedItem = memberTableView.getSelectionModel().getSelectedItem();
 		if (selectedItem != null) {
 			ApplicationDataContext.getInstance().put(ContextDataKey.RECORD_MEMBER, selectedItem);
 			Context.getInstance().changeScreen(actionEvent, RecordView.getInstance());
 		}
+	}
+	
+	public void addBookButton(ActionEvent actionEvent) {
+		Context.getInstance().changeScreen(actionEvent, AddBookView.getInstance());
 	}
 	
 	public void addBookCopyButton(ActionEvent actionEvent) {

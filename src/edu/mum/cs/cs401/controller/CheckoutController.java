@@ -69,7 +69,7 @@ public class CheckoutController extends Controller {
 		tableColumnIsbn.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
 		tableColumTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
 		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<Book, String>("description"));
-		setAllMemberToTable();
+		setAllBookToTable();
 		tableColumCopynumber.setCellValueFactory(new PropertyValueFactory<BookCopy, String>("copyNumber"));
 		tableColumnAvailability.setCellValueFactory(new PropertyValueFactory<BookCopy, Boolean>("isAvailable"));
 		
@@ -88,7 +88,7 @@ public class CheckoutController extends Controller {
 	public void searchIsbnButton(ActionEvent actionEvent) {
 		String isbn = searchIsbnTextField.getText();
 		if (isbn.isEmpty()) {
-			setAllMemberToTable();
+			setAllBookToTable();
 		} else {
 			Book search = BookDAOImpl.getInstance().searchBook(isbn);
 			ObservableList<Book> data = null;
@@ -120,7 +120,7 @@ public class CheckoutController extends Controller {
 		}
 	}
 
-	private void setAllMemberToTable() {
+	private void setAllBookToTable() {
 		List<Book> list = BookDAOImpl.getInstance().getAll();
 		ObservableList<Book> data = FXCollections.observableArrayList(list);
 		bookTableView.setItems(data);

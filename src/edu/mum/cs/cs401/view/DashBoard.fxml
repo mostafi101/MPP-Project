@@ -21,11 +21,7 @@
               <tabs>
                 <Tab fx:id="adminTab" text="Adminitrator">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button layoutX="63.0" layoutY="67.0" mnemonicParsing="false" onAction="#addMember" prefHeight="75.0" prefWidth="155.0" text="Add Member" />
-                           </children>
-                        </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
                 <Tab fx:id="libTab" text="Librarian">
@@ -40,11 +36,18 @@
                                 </columns>
                               </TableView>
                               <TextField fx:id="searchMemberIdText" layoutX="46.0" layoutY="36.0" prefHeight="31.0" prefWidth="145.0" promptText="Member ID" />
-                              <Button layoutX="287.0" layoutY="287.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="134.0" text="Add Book Copy" onAction="#addBookCopyButton" fx:id="addBookCopyButton"/>
-                              <Button layoutX="427.0" layoutY="287.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="97.0" text="Add Book" fx:id="addBookButton" onAction="#addBookButton" />
+                              <Button layoutX="46.0" layoutY="325.0" mnemonicParsing="false" onAction="#addMember" prefHeight="37.0" prefWidth="215.0" text="Add Member" />
+                              <Button fx:id="addBookCopyButton" layoutX="287.0" layoutY="287.0" mnemonicParsing="false" onAction="#addBookCopyButton" prefHeight="31.0" prefWidth="134.0" text="Add Book Copy" />
+                              <Button fx:id="addBookButton" layoutX="427.0" layoutY="287.0" mnemonicParsing="false" onAction="#addBookButton" prefHeight="31.0" prefWidth="97.0" text="Add Book" />
                               <Button layoutX="46.0" layoutY="285.0" mnemonicParsing="false" onAction="#checkoutSceneButton" prefHeight="35.0" prefWidth="104.0" text="Checkout" />
                               <Button layoutX="155.0" layoutY="285.0" mnemonicParsing="false" onAction="#getRecords" prefHeight="35.0" prefWidth="106.0" text="Records" />
                               <Button layoutX="195.0" layoutY="36.0" mnemonicParsing="false" onAction="#searchMember" text="Search" />
+                              <TableView fx:id="tableViewBook" layoutX="287.0" layoutY="36.0" prefHeight="245.0" prefWidth="235.0">
+                                <columns>
+                                  <TableColumn fx:id="tableColumnISBN" prefWidth="75.0" text="ISBN" />
+                                  <TableColumn fx:id="tableColumnTitle" prefWidth="151.0" text="Title" />
+                                </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                   </content>
